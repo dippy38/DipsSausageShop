@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/edit_message"
-        android:editable="false" />
+/>
 </TableRow>
 
     <TableRow>
@@ -25,10 +25,12 @@
 
 
     <TableRow>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send" />
+        android:text="@string/button_send"
+        android:onClick="sendMessage"/>
     </TableRow>
 
 
