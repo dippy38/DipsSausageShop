@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '20.0.0'
+    buildToolsVersion '21.0.2'
 
     defaultConfig {
         applicationId "com.example.jhutti.myapplication"
@@ -22,4 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:support-v4:21.0.+'
+    compile files('lib/PayPalAndroidSDK-2.7.0.jar')
 }

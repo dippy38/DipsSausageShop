@@ -1,41 +1,46 @@
 package com.example.jhutti.myapplication;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.content.Intent;
+import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuInflater;
+
+import com.paypal.android.sdk.payments.PayPalAuthorization;
 
 
-public class MainActivity extends ActionBarActivity {
-    public final static String BASKET_MESSAGE = "com.example.jhutti.myapplication.MESSAGE";
-    
+public class DisplayBasketActivity extends ActionBarActivity {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+        // Create the text view
+        TextView textView = new TextView(this);
+        textView.setTextSize(20);
+        textView.setText(Basket.displayBasket());
+
+        // Set the text view as the activity layout
+        setContentView(textView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,27 +68,14 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
-        }
+        public PlaceholderFragment() { }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my, container, false);
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.activity_display_message,
+                    container, false);
             return rootView;
         }
     }
-
-    /** Called when the user clicks the Sausage button */
-    public void buySausage(View view) {
-        Intent intent = new Intent(this, DisplayBasketActivity.class);
-        String itemDescription=view.getContentDescription().toString();
-        double itemNumber;
-        double itemPrice;
-        if (itemDescription.equals("Sausage Rolls")) {itemNumber=2; itemPrice=25;} else {itemNumber=1; itemPrice=10;}
-        BasketItem myItem= new BasketItem(itemNumber,itemDescription,itemPrice);
-        Basket.addItem(myItem);
-        startActivity(intent);
-    }
-
 }

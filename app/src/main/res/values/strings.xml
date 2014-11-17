@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Compli-Me</string>
+    <string name="app_name">Dips Shop</string>
     <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
-    <string name="action_settings">Settings</string>
+    <string name="button_buy">Buy</string>
+    <string name="hello_world">Buy</string>
+    <string name="action_checkout">Checkout</string>
+    <string name="action_empty">Empty</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_display_message">My Message</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_display_basket">Your Basket</string>
+    <string name="mini_sausages">Mini Sausages</string>
+    <string name="sausage_roll">Sausage Rolls</string>
+    <string name="action_basket">Basket</string>
+
 
 </resources>

@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.jhutti.myapplication.DisplayMessageActivity" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    tools:context="com.example.jhutti.myapplication.DisplayBasketActivity" >
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/action_checkout"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 </menu>

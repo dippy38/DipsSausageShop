@@ -1,37 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:showDividers="middle|beginning|end">
 
-<TableRow>
-    <EditText android:id="@+id/edit_message"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
-/>
-</TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TableRow>
-        <RatingBar
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ratingBar2"
-            android:layout_column="1" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/mini_sausages"
+            android:id="@+id/textView"
+            android:layout_column="6" />
     </TableRow>
 
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TableRow>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_send"
-        android:onClick="sendMessage"/>
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageMiniSausages"
+            android:layout_column="6"
+            android:clickable="true"
+            android:onClick="buySausage"
+            android:src="@drawable/small_sausage"
+            android:contentDescription="@string/mini_sausages" />
     </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/sausage_roll"
+            android:id="@+id/textView2"
+            android:layout_column="6"
+            android:onClick="buySausage" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageSausageRoll"
+            android:layout_column="6"
+            android:src="@drawable/sausage_roll"
+            android:onClick="buySausage"
+            android:contentDescription="@string/sausage_roll" />
+    </TableRow>
+
 
 
 </TableLayout>
