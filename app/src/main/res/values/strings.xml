@@ -2,9 +2,7 @@
 <resources>
 
     <string name="app_name">Dips Shop</string>
-    <string name="edit_message">Enter a message</string>
     <string name="button_buy">Buy</string>
-    <string name="hello_world">Buy</string>
     <string name="action_checkout">Checkout</string>
     <string name="action_empty">Empty</string>
     <string name="title_activity_main">MainActivity</string>
@@ -12,6 +10,7 @@
     <string name="mini_sausages">Mini Sausages</string>
     <string name="sausage_roll">Sausage Rolls</string>
     <string name="action_basket">Basket</string>
-
+    <string name="welcome">Welcome to Dips Sausage Shop</string>
+    <string name="explanation">Add items to your basket below by clicking on your Sausage of choice</string>
 
 </resources>
