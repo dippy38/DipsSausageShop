@@ -1,13 +1,11 @@
 package com.example.jhutti.myapplication;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.content.Intent;
-import android.widget.ExpandableListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.RelativeLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import com.paypal.android.sdk.payments.PayPalAuthorization;
-import java.util.ArrayList;
-import android.widget.Button;
-
+import android.widget.ArrayAdapter;
 
 public class DisplayBasketActivity extends ActionBarActivity{
 
@@ -29,33 +23,22 @@ public class DisplayBasketActivity extends ActionBarActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
-
-        //TODO CHANGE TO LISTVIEW HERE???????
-        RelativeLayout myLayout = new RelativeLayout(this);
-
-        Button myButton = new Button(this);
-        myButton.setText("Press me");
-
-        RelativeLayout.LayoutParams buttonParams =
-                new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        buttonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        buttonParams.addRule(RelativeLayout.CENTER_VERTICAL);
-
-        myLayout.addView(myButton, buttonParams);
-        setContentView(myLayout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Create the text view THIS WORKS!
-       // TextView textView = new TextView(this);
-       // textView.setTextSize(20);
-      //  textView.setText(Basket.displayBasket());
+        //Create a Layout
+        LinearLayout myLayout = new LinearLayout(this);
+        LinearLayout.LayoutParams lvParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        // Set the text view as the activity layout
-      // setContentView(textView);
-      // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Create the ListAdapter and populate it
+        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_item, Basket.getFullBasketList() );
+
+        //Connect the ListAdapter and ListView
+        ListView lv = new ListView(this);
+        lv.setAdapter(listAdapter);
+
+        //Connect the Layout and now-populated View
+        myLayout.addView(lv, lvParams);
+        setContentView(myLayout);
     }
 
 
@@ -73,6 +56,7 @@ public class DisplayBasketActivity extends ActionBarActivity{
         // Handle presses on the action bar items
         Intent intent = new Intent(this, DisplayBasketActivity.class);
 
+        //Select what happens when menu item selected (basket/checkout/empty)
         switch (item.getItemId()) {
             case R.id.action_basket:
                 startActivity(intent);

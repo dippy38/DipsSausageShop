@@ -3,6 +3,7 @@
 
     <string name="app_name">Dips Shop</string>
     <string name="button_buy">Buy</string>
+    <string name="button_remove">Remove</string>
     <string name="action_checkout">Checkout</string>
     <string name="action_empty">Empty</string>
     <string name="title_activity_main">MainActivity</string>

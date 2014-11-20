@@ -6,5 +6,5 @@
     <item android:id="@+id/action_settings"
         android:title="@string/action_checkout"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

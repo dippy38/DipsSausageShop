@@ -78,9 +78,9 @@ public class MainActivity extends ActionBarActivity {
     public void buySausage(View view) {
         Intent intent = new Intent(this, DisplayBasketActivity.class);
         String itemDescription=view.getContentDescription().toString();
-        double itemNumber;
+        int itemNumber;
         double itemPrice;
-        if (itemDescription.equals("Sausage Rolls")) {itemNumber=2; itemPrice=25;} else {itemNumber=1; itemPrice=10;}
+        if (itemDescription.equals("Sausage Rolls")) {itemNumber=20293847; itemPrice=25.63;} else {itemNumber=18475843; itemPrice=10.59;}
         BasketItem myItem= new BasketItem(itemNumber,itemDescription,itemPrice);
         Basket.addItem(myItem);
         startActivity(intent);

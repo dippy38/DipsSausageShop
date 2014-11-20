@@ -13,6 +13,7 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/action_checkout"
+        android:icon="@drawable/ic_ecm"
         android:title="@string/action_checkout"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 </menu>

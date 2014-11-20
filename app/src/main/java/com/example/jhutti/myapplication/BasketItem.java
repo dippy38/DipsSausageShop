@@ -3,11 +3,11 @@ package com.example.jhutti.myapplication;
 
 public class BasketItem {
 
-    public double getIdentifier() {
+    public int getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(float identifier) {
+    public void setIdentifier(int identifier) {
         this.identifier = identifier;
     }
 
@@ -27,11 +27,11 @@ public class BasketItem {
         this.price = price;
     }
 
-    private double identifier;
+    private int identifier;
     private String description;
     private double price;
 
-    public  BasketItem(double identifier, String desc, double price){
+    public  BasketItem(int identifier, String desc, double price){
         this.identifier=identifier;
         this.description=desc;
         this.price=price;
