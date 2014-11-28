@@ -1,5 +1,10 @@
 package com.example.jhutti.myapplication;
+import android.widget.Toast;
+
+import com.paypal.android.sdk.payments.PayPalItem;
+
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,9 +15,9 @@ public class Basket {
 
     //TODO Add private constructor and singleton methodology
 
-    public static ArrayList<BasketItem>myBasket = new ArrayList<BasketItem>();
-    public static String currency = "GBP";
-    public static String currencyISO = "£";
+    private static ArrayList<BasketItem>myBasket = new ArrayList<BasketItem>();
+    public static String currencyISO = "GBP";
+    public static String currencySymbol = "£";
 
 
     public static void addItem(BasketItem myItem){
@@ -37,15 +42,17 @@ public class Basket {
     }
 
 
-    public static ArrayList<String> getBasketList(){
-        ArrayList<String> stringBasket = new ArrayList<String>();
-        int i =0;
+    public static PayPalItem[] getBasketPayPalItems(){
+        PayPalItem [] myPayPalBasket = new PayPalItem[myBasket.size()];
 
-        for (BasketItem item : myBasket) {
-            stringBasket.add(i,item.getIdentifier() + "          " + item.getDescription() + "          " + item.getPrice() );
+        for (int i=0; i<myBasket.size(); i++){
+            myPayPalBasket[i] = new PayPalItem(myBasket.get(i).getDescription(),1,myBasket.get(i).getPriceDecimal(),currencyISO,myBasket.get(i).getIdentifierString());
+           // myPayPalBasket[i] = new PayPalItem(myBasket.get(i).getDescription(),1,new BigDecimal(2.01),currencyISO,"123456789");
+
+
         }
-        Collections.reverse(stringBasket);
-        return stringBasket;
+
+        return myPayPalBasket;
     }
 
     public static ArrayList<String> getFullBasketList(){
@@ -54,10 +61,15 @@ public class Basket {
         int i =0;
 
         for (BasketItem item : myBasket) {
-            stringBasket.add(i,item.getIdentifier() + "          " + item.getDescription() + "          " + currencyISO + item.getPrice() );
+            stringBasket.add(i,item.getIdentifier() + "          " + item.getDescription() + "          " + currencySymbol + item.getPrice() );
         }
         Collections.reverse(stringBasket);
         return stringBasket;
+    }
+
+    public void checkout(){
+
+
     }
 
 }
