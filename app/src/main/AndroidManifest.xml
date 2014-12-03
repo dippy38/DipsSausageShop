@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jhutti.myapplication" >
+    package="com.example.jhutti.dipssausageshop" >
     <uses-sdk android:minSdkVersion="16"
         android:targetSdkVersion="16"
         android:maxSdkVersion="16" />
@@ -32,7 +32,7 @@
         <activity android:name="io.card.payment.DataEntryActivity" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.jhutti.dipssausageshop.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,9 +41,9 @@
         </activity>
 
         <activity
-            android:name=".DisplayBasketActivity"
+            android:name="com.example.jhutti.dipssausageshop.DisplayBasketActivity"
             android:label="@string/title_activity_display_basket"
-            android:parentActivityName="com.example.jhutti.myapplication.MainActivity" >
+            android:parentActivityName="com.example.jhutti.dipssausageshop.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jhutti.myapplication.MainActivity" />

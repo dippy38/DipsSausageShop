@@ -1,72 +1,71 @@
-package com.example.jhutti.myapplication;
+package com.example.jhutti.dipssausageshop;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.MenuItem;
-import android.content.Intent;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.RelativeLayout;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalItem;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalPaymentDetails;
+import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
-import com.paypal.android.sdk.payments.ProofOfPayment;
 import com.paypal.android.sdk.payments.ShippingAddress;
 
 import org.json.JSONException;
 
 import java.math.BigDecimal;
 
-public class DisplayBasketActivity extends ActionBarActivity{
 
+public class MainActivity extends ActionBarActivity {
+    public final static String BASKET_MESSAGE = "com.example.jhutti.myapplication.MESSAGE";
+
+    private static PayPalConfiguration config = new PayPalConfiguration()
+
+            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+            // or live (ENVIRONMENT_PRODUCTION)
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+
+            .clientId("AW-jfRBs4umTiV1HVxqhYH3eFuakfZ4Qn_aPHrQ6Jx4OrwsXYFp3NIMmkwuN");
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_my);
 
-        //Create a Layout
-        LinearLayout myLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lvParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, new PlaceholderFragment())
+                    .commit();
 
-        //Create the ListAdapter and populate it
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_item, Basket.getFullBasketList() );
+            Intent intent = new Intent(this, PayPalService.class);
 
-        //Connect the ListAdapter and ListView
-        ListView lv = new ListView(this);
-        lv.setAdapter(listAdapter);
+            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
-        //Connect the Layout and now-populated View
-        myLayout.addView(lv, lvParams);
-        setContentView(myLayout);
+            startService(intent);
+
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
+        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -80,7 +79,7 @@ public class DisplayBasketActivity extends ActionBarActivity{
                 return true;
             case R.id.action_checkout:
 
-               // PayPalConfiguration payPalConfiguration = new PayPalConfiguration().
+                // PayPalConfiguration payPalConfiguration = new PayPalConfiguration().
                 //Calculate Costs
                 BigDecimal subtotal = PayPalItem.getItemTotal(Basket.getBasketPayPalItems());
                 BigDecimal shipping = new BigDecimal("9.99");
@@ -109,6 +108,7 @@ public class DisplayBasketActivity extends ActionBarActivity{
                 Intent intentPay = new Intent(this, PaymentActivity.class);
                 intentPay.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
                 startActivityForResult(intentPay, 0);
+
                 return true;
             case R.id.action_empty:
                 Basket.emptyBasket();
@@ -119,6 +119,41 @@ public class DisplayBasketActivity extends ActionBarActivity{
         }
     }
 
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_my, container, false);
+            return rootView;
+        }
+    }
+
+    /** Called when the user clicks the Sausage button */
+    public void buySausage(View view) {
+        Intent intent = new Intent(this, DisplayBasketActivity.class);
+        String itemDescription=view.getContentDescription().toString();
+        int itemNumber;
+        double itemPrice;
+        if (itemDescription.equals("Sausage Rolls")) {itemNumber=20293847; itemPrice=25.63;} else {itemNumber=18475843; itemPrice=10.59;}
+        BasketItem myItem= new BasketItem(itemNumber,itemDescription,itemPrice);
+        Basket.addItem(myItem);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
+
+
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 
@@ -127,7 +162,7 @@ public class DisplayBasketActivity extends ActionBarActivity{
             if (confirm != null) {
                 try {
                     Log.i("paymentExample", confirm.toJSONObject().toString(4));
-                    Toast.makeText(getApplicationContext(),"Your Order was successful",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Your Order was successful", Toast.LENGTH_LONG).show();
                     Basket.emptyBasket();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
@@ -141,28 +176,12 @@ public class DisplayBasketActivity extends ActionBarActivity{
             }
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
-            Log.i("paymentExample", "The user cancelled.");
-            Toast.makeText(getApplicationContext(),"Your Order was cancelled. Please retry by clicking the PayPal icon",Toast.LENGTH_LONG).show();
+            Log.i("paymentExample", "The user canceled.");
         }
         else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-            Toast.makeText(getApplicationContext(),"An invalid Payment was submitted.",Toast.LENGTH_LONG).show();
         }
     }
 
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() { }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_display_message, container, false);
-            System.out.println("here!!!!!!!!!!!!!!!!!!!!!!!");
-            return rootView;
-        }
-    }
 }

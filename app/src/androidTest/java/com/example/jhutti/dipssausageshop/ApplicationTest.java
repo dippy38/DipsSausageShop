@@ -1,4 +1,4 @@
-package com.example.jhutti.myapplication;
+package com.example.jhutti.dipssausageshop;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

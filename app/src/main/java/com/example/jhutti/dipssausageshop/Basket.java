@@ -1,13 +1,10 @@
-package com.example.jhutti.myapplication;
-import android.widget.Toast;
+package com.example.jhutti.dipssausageshop;
 
 import com.paypal.android.sdk.payments.PayPalItem;
 
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
 /**
  * Created by mjhutti on 17/11/2014.
  */
